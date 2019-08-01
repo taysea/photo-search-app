@@ -8,7 +8,7 @@ export const customTheme = deepMerge(grommet, {
       face: `
         @font-face {
           font-family: "Euclid";
-          src: url("/src/fonts/Euclid.otf") format('otf');
+          src: url("./fonts/Euclid.otf") format('otf');
         }`,
     },
   },

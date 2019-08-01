@@ -13,7 +13,6 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import Loader from 'react-loader-spinner';
 import { customTheme } from './theme';
 
 import {
@@ -23,6 +22,7 @@ import {
   PhotoDetails,
   ScrollToTop,
   SearchForm,
+  Spinner,
 } from './components';
 import config from './config';
 
@@ -67,22 +67,28 @@ class App extends Component {
 
   resetState = () => {
     this.setState({ ...initialState });
-
     this.generateRandomImages();
   }
 
   generateRandomImages = async () => {
-    const res = await fetch(`https://api.unsplash.com/photos/random/?client_id=${config.apiKey}&count=20&featured=true`);
-    const photos = await res.json();
     this.setState({
-      photos,
-      loading: false,
+      loading: true,
     });
+    try {
+      const res = await fetch(`https://api.unsplash.com/photos/random/?client_id=${config.apiKey}&count=20&featured=true`);
+      const photos = await res.json();
+      this.setState({
+        photos,
+        loading: false,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   render() {
     return (
-      <Grommet theme={customTheme}>
+      <Grommet theme={customTheme} full>
         <ResponsiveContext.Consumer>
           {size => (
             <Router>
@@ -91,7 +97,7 @@ class App extends Component {
                   {/* If page is loading, show loader, otherwise load content */}
                   {this.state.loading ? (
                     <Box full height="100vh" align="center" justify="center">
-                      <Loader type="TailSpin" color="#000" height={80} width={80} />
+                      <Spinner />
                     </Box>
                   ) : (
                     <Box gap="medium" pad="large">
@@ -105,8 +111,8 @@ class App extends Component {
                             }}
                           >
                             <Heading size="small" color="dark-1">a responsive photo gallery</Heading>
-                            <Text color="dark-1">created using Grommet and Unsplash's API</Text>
                           </Link>
+                          <Text color="dark-1">created using Grommet and Unsplash's API</Text>
                         </Box>
                         {/* <Box> */}
                         <SearchForm

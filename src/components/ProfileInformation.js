@@ -35,7 +35,7 @@ ProfileInformation.defaultProps = {
 };
 
 const Handle = styled.p`
-  font-family: Euclid-Light;
+  // font-family: Euclid-Light;
   font-size: 0.8em;
   color: #333;
 `;
