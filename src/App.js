@@ -71,9 +71,6 @@ class App extends Component {
   }
 
   generateRandomImages = async () => {
-    this.setState({
-      loading: true,
-    });
     try {
       const res = await fetch(`https://api.unsplash.com/photos/random/?client_id=${config.apiKey}&count=20&featured=true`);
       const photos = await res.json();
