@@ -1,29 +1,33 @@
-/* eslint class-methods-use-this: 0 */
 import React, { Component } from 'react';
 import {
-  Grommet, grommet as theme, Box, Heading, Text, ResponsiveContext,
+  Box,
+  Grommet,
+  Heading,
+  ResponsiveContext,
+  Text,
 } from 'grommet';
+
 import {
   BrowserRouter as Router,
   Route,
   Switch,
 } from 'react-router-dom';
-import Loader from 'react-loader-spinner';
-// Move font into the theme -- global.font.family
-import './App.css';
-// Tell Alex no css files
-import './reset.css';
-// Create index.js and export all components so you can
-// have single import line in App.js
-import Link from './components/Link';
-import PhotoDetails from './components/PhotoDetails';
-import SearchForm from './components/SearchForm';
-import ImageList from './components/ImageList';
-import ScrollToTop from './components/ScrollToTop';
-import config from './config';
-import Guideline from './components/Guideline';
 
-// Try to put in alphabetical order for any listed
+import Loader from 'react-loader-spinner';
+import { customTheme } from './theme';
+
+import {
+  Guideline,
+  ImageList,
+  Link,
+  PhotoDetails,
+  ScrollToTop,
+  SearchForm,
+} from './components';
+import config from './config';
+
+// No CSS
+import './reset.css';
 
 const initialState = {
   photos: [],
@@ -78,7 +82,7 @@ class App extends Component {
 
   render() {
     return (
-      <Grommet theme={theme}>
+      <Grommet theme={customTheme}>
         <ResponsiveContext.Consumer>
           {size => (
             <Router>

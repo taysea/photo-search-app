@@ -27,6 +27,8 @@ module.exports = {
     "react/destructuring-assignment": 0,
     "import/no-named-as-default": 0,
     "react/jsx-wrap-multilines": 0,
-    "implicit-arrow-linebreak": 0
+    "implicit-arrow-linebreak": 0,
+    "import/prefer-default-export": 0,
+    "class-methods-use-this": 0,
   }
 };

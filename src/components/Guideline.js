@@ -17,6 +17,8 @@ const Guideline = ({ tip, ...rest }) => (
   </Box>
 );
 
+export default Guideline;
+
 Guideline.propTypes = {
   tip: PropTypes.string,
 };
@@ -24,5 +26,3 @@ Guideline.propTypes = {
 Guideline.defaultProps = {
   tip: '',
 };
-
-export default Guideline;
