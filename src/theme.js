@@ -4,11 +4,11 @@ import { deepMerge } from 'grommet/utils';
 export const customTheme = deepMerge(grommet, {
   global: {
     font: {
-      family: 'Euclid, sans-serif',
+      family: 'MetricHPE, sans-serif',
       face: `
         @font-face {
-          font-family: "Euclid";
-          src: url("./fonts/Euclid.otf") format('otf');
+          font-family: "MetricHPE";
+          src: url("https://hpefonts.s3.amazonaws.com/web/MetricHPE-Web-Regular.woff") format('woff');
         }`,
     },
   },

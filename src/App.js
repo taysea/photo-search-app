@@ -1,3 +1,4 @@
+import './reset.css';
 import React, { Component } from 'react';
 import {
   Box,
@@ -24,16 +25,14 @@ import {
   SearchForm,
   Spinner,
 } from './components';
-import config from './config';
 
-// No CSS
-import './reset.css';
+import config from './config';
 
 const initialState = {
   photos: [],
   searched: false,
   searchTerm: '',
-  loading: false,
+  loading: true,
 };
 
 class App extends Component {
@@ -47,9 +46,7 @@ class App extends Component {
 
   onSearchSubmit = async (term) => {
     try {
-      this.setState({
-        loading: true,
-      });
+      this.toggleLoading();
       const response = await fetch(`https://api.unsplash.com/photos/random/?client_id=${config.apiKey}&count=20&featured=true&query=${term}`);
       const photos = await response.json();
 
@@ -57,8 +54,9 @@ class App extends Component {
         photos,
         searched: true,
         searchTerm: term,
-        loading: false,
       });
+
+      this.toggleLoading();
     } catch (e) {
       // Handle errors more properly (ex: display error message to user)
       // console.log(e);
@@ -76,14 +74,20 @@ class App extends Component {
       const photos = await res.json();
       this.setState({
         photos,
-        loading: false,
       });
+      this.toggleLoading();
     } catch (e) {
       console.log(e);
     }
   }
 
+  toggleLoading() {
+    this.setState(state => ({ loading: !state.loading }));
+  }
+
   render() {
+    const { loading } = this.state;
+
     return (
       <Grommet theme={customTheme} full>
         <ResponsiveContext.Consumer>
@@ -92,7 +96,7 @@ class App extends Component {
               <ScrollToTop>
                 <Box className="App">
                   {/* If page is loading, show loader, otherwise load content */}
-                  {this.state.loading ? (
+                  {loading ? (
                     <Box full height="100vh" align="center" justify="center">
                       <Spinner />
                     </Box>
@@ -111,13 +115,10 @@ class App extends Component {
                           </Link>
                           <Text color="dark-1">created using Grommet and Unsplash's API</Text>
                         </Box>
-                        {/* <Box> */}
                         <SearchForm
-                          // searchTerm={this.state.searchTerm}
                           searched={this.state.searched}
                           userSubmit={this.onSearchSubmit}
                         />
-                        {/* </Box> */}
                       </Box>
                       <Box as="article">
                         <Switch>

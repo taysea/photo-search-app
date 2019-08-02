@@ -14,16 +14,15 @@ class PhotoDetails extends Component {
     photo: {},
   }
 
-  componentDidMount = async () => {
-    // Fetch the photo data from the API then mount the component
+  componentDidMount() {
     this.getImage();
-    this.props.generateRandomImages();
+    // this.props.generateRandomImages();
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
       this.getImage();
-      this.props.generateRandomImages();
+      // this.props.generateRandomImages();
     }
   }
 
@@ -104,10 +103,10 @@ class PhotoDetails extends Component {
             other photos you might like
           </Text>
         </Box>
-        <ImageList
+        {/* <ImageList
           foundImages={this.props.photos}
           columns={columns}
-        />
+        /> */}
       </Box>
     );
   }
