@@ -25,7 +25,7 @@ class SearchForm extends Component {
       return;
     }
     // sends the searchTerm back to App.js
-    this.props.userSubmit(this.state.searchTerm);
+    this.props.onSearchSubmit(this.state.searchTerm);
 
     // This clears the value in the input
     // so the placeholder returns
@@ -69,7 +69,7 @@ export default withRouter(SearchForm);
 
 SearchForm.propTypes = {
   searchTerm: PropTypes.string,
-  userSubmit: PropTypes.func.isRequired,
+  onSearchSubmit: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,

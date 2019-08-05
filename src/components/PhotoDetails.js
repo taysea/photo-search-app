@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box, Text, Image,
@@ -105,6 +105,8 @@ class PhotoDetails extends Component {
         </Box>
         <ImageList
           columns={columns}
+          searchTerm={this.state.searchTerm}
+          searched={this.state.searched}
         />
       </Box>
     );

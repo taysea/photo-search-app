@@ -11,18 +11,23 @@ import {
 import Thumbnail from './Thumbnail';
 import config from '../config';
 
-function ImageList({ columns }) {
+const ImageList = ({ columns, searchTerm, searched }) => {
   const [data, setData] = useState({ photos: [] });
-  const [loadingStatus, setLoadingStatus] = useState('loading');
+  const [loadingStatus, setLoadingStatus] = useState('Loading');
 
   useEffect(() => {
-    const fetchPhotos = async () => {
+    async function fetchPhotos() {
       try {
-        const res = await fetch(`https://api.unsplash.com/photos/random/?client_id=${config.apiKey}&count=20&featured=true`);
+        let res = {};
+        if (searchTerm && searched === true) {
+          res = await fetch(`https://api.unsplash.com/photos/random/?client_id=${config.apiKey}&count=20&featured=true&query=${searchTerm}`);
+        } else {
+          res = await fetch(`https://api.unsplash.com/photos/random/?client_id=${config.apiKey}&count=20&featured=true`);
+        }
         const photos = await res.json();
         if (res.ok && photos.length > 0) {
           setData(photos);
-          setLoadingStatus('success');
+          setLoadingStatus('Success');
         } else if (res.ok && photos.length === 0) {
           setLoadingStatus('No images found');
         } else {
@@ -30,42 +35,44 @@ function ImageList({ columns }) {
         }
       } catch (e) {
         setLoadingStatus('Error');
+        console.log(e);
       }
-    };
+    }
     fetchPhotos();
-  }, []);
+  }, [searchTerm, searched]);
 
-  if (loadingStatus === 'loading') {
+  if (loadingStatus === 'Loading') {
     return (
       <Box full align="center" justify="center">
         <Spinner />
       </Box>
     );
-  } if (loadingStatus === 'Error') {
+  } if (loadingStatus === 'No images found') {
     return (
       <Box>
-        <Text alignSelf="center" color="status-error">Oh no! Something went wrong. Please try again in a little while.</Text>
+        <Text alignSelf="center">
+          Hmmm, we could not find any images about that.
+        </Text>
       </Box>
+    );
+  } if (loadingStatus === 'Success') {
+    return (
+      <Grid rows="medium" columns={columns} gap="small">
+        {data.map(photo => <Thumbnail key={photo.id} photo={photo} />)}
+      </Grid>
     );
   }
   return (
-    <Grid rows="medium" columns={columns} gap="small">
-      {data.map(photo => <Thumbnail key={photo.id} photo={photo} />)}
-    </Grid>
+    <Box>
+      <Text alignSelf="center">Oh no! Something went wrong. Please try again in a little while.</Text>
+    </Box>
   );
-}
+};
 
 export default ImageList;
 
-// ImageList.propTypes = {
-//   foundImages: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//       alt_description: PropTypes.string,
-//       urls: {
-//         regular: PropTypes.string.isRequired,
-//       },
-//     }).isRequired,
-//   ).isRequired,
-//   columns: PropTypes.string.isRequired,
-// };
+ImageList.propTypes = {
+  searchTerm: PropTypes.string.isRequired,
+  searched: PropTypes.bool.isRequired,
+  columns: PropTypes.string.isRequired,
+};

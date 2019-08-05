@@ -19,6 +19,7 @@ module.exports = {
   },
   "plugins": [
     "react",
+    "react-hooks",
   ],
   "extends": "airbnb",
   "rules": {
@@ -30,5 +31,7 @@ module.exports = {
     "implicit-arrow-linebreak": 0,
     "import/prefer-default-export": 0,
     "class-methods-use-this": 0,
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
   }
 };
