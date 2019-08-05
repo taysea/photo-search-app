@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box, Text, Image,
@@ -41,7 +41,7 @@ class PhotoDetails extends Component {
         downloads: photo.downloads,
       });
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   }
 
@@ -116,16 +116,6 @@ class PhotoDetails extends Component {
 export default PhotoDetails;
 
 PhotoDetails.propTypes = {
-  photos: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      alt_description: PropTypes.string,
-      urls: {
-        regular: PropTypes.string.isRequired,
-      },
-    }).isRequired,
-  ).isRequired,
-  generateRandomImages: PropTypes.func.isRequired,
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,

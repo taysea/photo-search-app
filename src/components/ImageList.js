@@ -19,7 +19,7 @@ const ImageList = ({ columns, searchTerm, searched }) => {
     async function fetchPhotos() {
       try {
         let res = {};
-        if (searchTerm && searched === true) {
+        if (searchTerm && searched) {
           res = await fetch(`https://api.unsplash.com/photos/random/?client_id=${config.apiKey}&count=20&featured=true&query=${searchTerm}`);
         } else {
           res = await fetch(`https://api.unsplash.com/photos/random/?client_id=${config.apiKey}&count=20&featured=true`);
@@ -35,7 +35,6 @@ const ImageList = ({ columns, searchTerm, searched }) => {
         }
       } catch (e) {
         setLoadingStatus('Error');
-        console.log(e);
       }
     }
     fetchPhotos();

@@ -61,30 +61,25 @@ class App extends Component {
                       path="/"
                       render={() => (
                         <Box as="article">
-                          {(this.componentDidUpdate || !this.state.searched)
-                            ? <Guideline width={size !== 'small' ? 'large' : '100%'} tip="This application fetches images from Unsplash using Unsplash's API and uses Grommet Grid to create a responsive image layout. Below is a random set of images generated from Unsplash's featured images. The search bar can also be used to search Unsplash's library for a specific topic (e.g. dog, island, purple flower)." />
-                            : <Guideline width={size !== 'small' ? 'large' : '100%'} tip={`Showing Unsplash results for: ${this.state.searchTerm}. Click on an image for more details about it.`} />
-                          }
-
-                          {(!this.state.searched)
-                          && <ImageList
+                          <Guideline tip="This application fetches images from Unsplash using Unsplash's API and uses Grommet Grid to create a responsive image layout. Below is a random set of images generated from Unsplash's featured images. The search bar can also be used to search Unsplash's library for a specific topic (e.g. dog, island, purple flower)." />
+                          <ImageList
                             columns={size !== 'small' ? 'medium' : '100%'}
                             searchTerm={this.state.searchTerm}
                             searched={this.state.searched}
                           />
-                          }
-                          {/* {(this.state.searched)
-                            ? <ImageList
-                              columns={size !== 'small' ? 'medium' : '100%'}
-                              searchTerm={this.state.searchTerm}
-                              searched={this.state.searched}
-                            />
-                            : <ImageList
-                              columns={size !== 'small' ? 'medium' : '100%'}
-                              searchTerm={this.state.searchTerm}
-                              searched={this.state.searched}
-                            />
-                          } */}
+                        </Box>
+                      )}
+                    />
+                    <Route
+                      path="/?:query"
+                      render={() => (
+                        <Box>
+                          <Guideline tip={`Showing Unsplash results for: ${this.state.searchTerm}. Click on an image for more details about it.`} />
+                          <ImageList
+                            columns={size !== 'small' ? 'medium' : '100%'}
+                            searchTerm={this.state.searchTerm}
+                            searched={this.state.searched}
+                          />
                         </Box>
                       )}
                     />

@@ -31,9 +31,7 @@ class SearchForm extends Component {
     // so the placeholder returns
     this.setState({
       searchTerm: '',
-    });
-
-    this.props.history.push('/');
+    }, this.props.history.push(`/?${this.state.searchTerm}`));
   }
 
   render() {
@@ -68,13 +66,8 @@ class SearchForm extends Component {
 export default withRouter(SearchForm);
 
 SearchForm.propTypes = {
-  searchTerm: PropTypes.string,
   onSearchSubmit: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
-};
-
-SearchForm.defaultProps = {
-  searchTerm: '',
 };

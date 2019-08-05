@@ -2,8 +2,11 @@ import React from 'react';
 import {
   Box,
   Heading,
-  Text,
 } from 'grommet';
+import {
+  Camera,
+} from 'grommet-icons';
+import PropTypes from 'prop-types';
 import {
   Link,
   SearchForm,
@@ -16,12 +19,20 @@ const Header = ({ onReload, ...rest }) => (
         to="/"
         onClick={onReload}
       >
-        <Heading size="small" color="dark-1">a responsive photo gallery</Heading>
+        <Box direction="row" gap="small" align="center">
+          <Camera size="large" color="dark-1" />
+          <Heading size="small" color="dark-1">a responsive photo gallery</Heading>
+        </Box>
+
       </Link>
-      <Text color="dark-1">created using Grommet and Unsplash's API</Text>
+      <Heading size="xsmall" color="dark-1">created using Grommet and Unsplash's API</Heading>
     </Box>
     <SearchForm {...rest} />
   </Box>
 );
 
 export default Header;
+
+Header.propTypes = {
+  onReload: PropTypes.func.isRequired,
+};
