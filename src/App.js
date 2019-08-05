@@ -32,16 +32,11 @@ const initialState = {
   photos: [],
   searched: false,
   searchTerm: '',
-  loading: true,
+  // loading: true,
 };
 
 class App extends Component {
   state = { ...initialState }
-
-  componentDidMount() {
-    this.generateRandomImages();
-  }
-
   // componentUmount -- explore
 
   onSearchSubmit = async (term) => {
@@ -65,20 +60,6 @@ class App extends Component {
 
   resetState = () => {
     this.setState({ ...initialState });
-    this.generateRandomImages();
-  }
-
-  generateRandomImages = async () => {
-    try {
-      const res = await fetch(`https://api.unsplash.com/photos/random/?client_id=${config.apiKey}&count=20&featured=true`);
-      const photos = await res.json();
-      this.setState({
-        photos,
-      });
-      this.toggleLoading();
-    } catch (e) {
-      console.log(e);
-    }
   }
 
   toggleLoading() {
@@ -134,8 +115,6 @@ class App extends Component {
 
                                 <ImageList
                                   {...props}
-                                  foundImages={this.state.photos}
-                                  generateRandomImages={this.generateRandomImages}
                                   columns={size !== 'small' ? 'medium' : '100%'}
                                 />
                               </Box>

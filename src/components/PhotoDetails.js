@@ -103,10 +103,9 @@ class PhotoDetails extends Component {
             other photos you might like
           </Text>
         </Box>
-        {/* <ImageList
-          foundImages={this.props.photos}
+        <ImageList
           columns={columns}
-        /> */}
+        />
       </Box>
     );
   }
