@@ -21,7 +21,6 @@ import {
   Header,
   PhotoDetails,
   ScrollToTop,
-  Spinner,
 } from './components';
 
 const initialState = {
@@ -43,13 +42,7 @@ class App extends Component {
     });
   }
 
-  // toggleLoading() {
-  //   this.setState(state => ({ loading: !state.loading }));
-  // }
-
   render() {
-    const { loading } = this.state;
-
     return (
       <Grommet theme={customTheme} full>
         <ResponsiveContext.Consumer>
