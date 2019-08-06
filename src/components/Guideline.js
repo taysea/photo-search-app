@@ -5,7 +5,7 @@ import {
 } from 'grommet';
 
 const Guideline = ({ tip, ...rest }) => (
-  <ResponsiveContext>
+  <ResponsiveContext.Consumer>
     { size => (
       <Box
         background="light-2"
@@ -19,7 +19,7 @@ const Guideline = ({ tip, ...rest }) => (
         <Text color="dark-1" textAlign="center">{tip}</Text>
       </Box>
     )}
-  </ResponsiveContext>
+  </ResponsiveContext.Consumer>
 
 );
 

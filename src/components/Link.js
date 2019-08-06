@@ -17,8 +17,12 @@ const Link = ({
 
 Link.propTypes = {
   to: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   children: PropTypes.node.isRequired,
+};
+
+Link.defaultProps = {
+  onClick: null,
 };
 
 export default Link;

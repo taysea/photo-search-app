@@ -6,13 +6,13 @@ import {
   ImageList,
 } from '../components';
 
-const MainScreen = ({ searchTerm, searched }) => (
+const MainScreen = ({ ...props }) => (
   <Box gap="medium">
-    <Guideline tip="This application fetches images from Unsplash using Unsplash's API and uses Grommet Grid to create a responsive image layout. Below is a random set of images generated from Unsplash's featured images. The search bar can also be used to search Unsplash's library for a specific topic (e.g. dog, island, purple flower)." />
-
+    <Guideline tip={props.history.location.search ? `Showing Unsplash results for: ${props.history.location.search.substr(1)}. Click on an image for more details about it.`
+      : "This application fetches images from Unsplash using Unsplash's API and uses Grommet Grid to create a responsive image layout. Below is a random set of images generated from Unsplash's featured images. The search bar can also be used to search Unsplash's library for a specific topic (e.g. dog, island, purple flower)."}
+    />
     <ImageList
-      searchTerm={searchTerm}
-      searched={searched}
+      {...props}
     />
   </Box>
 );
@@ -20,6 +20,9 @@ const MainScreen = ({ searchTerm, searched }) => (
 export default MainScreen;
 
 MainScreen.propTypes = {
-  searchTerm: PropTypes.string.isRequired,
-  searched: PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      search: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };

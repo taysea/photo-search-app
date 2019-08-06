@@ -14,24 +14,20 @@ class SearchForm extends Component {
   }
 
   onInputChange = (event) => {
-    this.setState({ searchTerm: event.target.value });
+    this.setState({ searchTerm: event.target.value.trim() });
   }
 
   onFormSubmit = (event) => {
     event.preventDefault();
 
-    // Don't allow blank search
-    if (this.state.searchTerm.length <= 0) {
-      return;
-    }
-    // sends the searchTerm back to App.js
-    this.props.onSearchSubmit(this.state.searchTerm);
-
     // This clears the value in the input
     // so the placeholder returns
     this.setState({
       searchTerm: '',
-    }, this.props.history.push(`/?${this.state.searchTerm}`));
+    }, this.props.history.push({
+      pathname: '/',
+      search: `${this.state.searchTerm}`,
+    }));
   }
 
   render() {
@@ -66,7 +62,6 @@ class SearchForm extends Component {
 export default withRouter(SearchForm);
 
 SearchForm.propTypes = {
-  onSearchSubmit: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,

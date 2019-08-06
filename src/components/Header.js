@@ -12,12 +12,11 @@ import {
   SearchForm,
 } from '.';
 
-const Header = ({ onReload, ...rest }) => (
+const Header = () => (
   <Box as="header" direction="row-responsive" gap="medium" pad={{ bottom: 'medium' }} justify="between">
     <Box>
       <Link
         to="/"
-        onClick={onReload}
       >
         <Box direction="row" gap="small" align="center">
           <Camera size="large" color="dark-1" />
@@ -27,12 +26,8 @@ const Header = ({ onReload, ...rest }) => (
       </Link>
       <Heading size="xsmall" color="dark-1">created using Grommet and Unsplash's API</Heading>
     </Box>
-    <SearchForm {...rest} />
+    <SearchForm />
   </Box>
 );
 
 export default Header;
-
-Header.propTypes = {
-  onReload: PropTypes.func.isRequired,
-};

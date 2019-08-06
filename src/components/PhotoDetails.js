@@ -49,7 +49,7 @@ class PhotoDetails extends Component {
     } = this.state;
 
     return (
-      <ResponsiveContext>
+      <ResponsiveContext.Consumer>
         {size => (
           <Box
             gap="medium"
@@ -91,8 +91,7 @@ class PhotoDetails extends Component {
           </Box>
         )}
 
-      </ResponsiveContext>
-
+      </ResponsiveContext.Consumer>
     );
   }
 }
