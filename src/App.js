@@ -15,15 +15,15 @@ import {
 import { customTheme } from './theme';
 
 import {
-  Guideline,
-  ImageList,
   Footer,
   Header,
   ScrollToTop,
 } from './components';
 
-import PhotoDetailsScreen from './screens/PhotoDetailsScreen';
-import MainScreen from './screens/MainScreen';
+import {
+  PhotoDetailsScreen,
+  MainScreen,
+} from './screens';
 
 const initialState = {
   searched: false,
