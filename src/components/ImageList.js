@@ -12,9 +12,20 @@ import {
 import Thumbnail from './Thumbnail';
 import config from '../config';
 
-const ImageList = ({ columns, searchTerm, searched }) => {
+const statuses = {
+  loading: 'loading',
+  none: 'no images',
+  success: 'success',
+  error: 'error',
+};
+
+const ImageList = ({ searchTerm, searched }) => {
+  const {
+    loading, none, success, error,
+  } = statuses;
+
   const [data, setData] = useState({ photos: [] });
-  const [loadingStatus, setLoadingStatus] = useState('Loading');
+  const [loadingStatus, setLoadingStatus] = useState(loading);
 
   useEffect(() => {
     async function fetchPhotos() {
@@ -28,26 +39,26 @@ const ImageList = ({ columns, searchTerm, searched }) => {
         const photos = await res.json();
         if (res.ok && photos.length > 0) {
           setData(photos);
-          setLoadingStatus('Success');
+          setLoadingStatus(success);
         } else if (res.ok && photos.length === 0) {
-          setLoadingStatus('No images found');
+          setLoadingStatus(none);
         } else {
-          setLoadingStatus('Error');
+          setLoadingStatus(error);
         }
       } catch (e) {
-        setLoadingStatus('Error');
+        setLoadingStatus(error);
       }
     }
     fetchPhotos();
-  }, [searchTerm, searched]);
+  }, [error, none, searchTerm, searched, success]);
 
-  if (loadingStatus === 'Loading') {
+  if (loadingStatus === loading) {
     return (
       <Box full align="center" justify="center">
         <Spinner />
       </Box>
     );
-  } if (loadingStatus === 'No images found') {
+  } if (loadingStatus === none) {
     return (
       <Box>
         <Text alignSelf="center">
@@ -55,7 +66,7 @@ const ImageList = ({ columns, searchTerm, searched }) => {
         </Text>
       </Box>
     );
-  } if (loadingStatus === 'Success') {
+  } if (loadingStatus === success) {
     return (
       <ResponsiveContext>
         {size => (
