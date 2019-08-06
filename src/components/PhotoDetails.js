@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Box, Text, Image,
+  Box,
+  Image,
+  ResponsiveContext,
 } from 'grommet';
 import ImageList from './ImageList';
 import config from '../config';
@@ -50,26 +52,21 @@ class PhotoDetails extends Component {
       photo, src, profilePic, name, username, likes, views, downloads,
     } = this.state;
 
-    const {
-      size, columns,
-    } = this.props;
-
     return (
-      <Box gap="medium">
-        <Guideline tip="This page fetches data specific to the image that was clicked— including information about the user who uploaded the image and statistics regarding number of views, likes, and downloads." width="large" />
-
-        <Box
-          gap="medium"
-          border={size === 'small' && { side: 'bottom', color: 'light-5', style: 'solid' }} // Create bottom-border on mobile
-          pad={{ bottom: 'large' }}
-        >
-          <Box direction="row" justify="between">
-            <ProfileInformation
-              profilePic={profilePic}
-              name={name}
-              username={username}
-            />
-            {size !== 'small'
+      <ResponsiveContext>
+        {size => (
+          <Box
+            gap="medium"
+            border={size === 'small' && { side: 'bottom', color: 'light-5', style: 'solid' }} // Create bottom-border on mobile
+            pad={{ bottom: 'large' }}
+          >
+            <Box direction="row" justify="between">
+              <ProfileInformation
+                profilePic={profilePic}
+                name={name}
+                username={username}
+              />
+              {size !== 'small'
             // Only show this on desktop
             // These are the stats in a row above featured image
             && <ImageStats
@@ -80,13 +77,13 @@ class PhotoDetails extends Component {
               wrap
             />
             }
-          </Box>
+            </Box>
 
-          <Box width={size !== 'small' ? 'large' : '100%'} alignSelf="center">
-            <Image src={src} alt={photo.alt_description} width="100%" />
-          </Box>
+            <Box width={size !== 'small' ? 'large' : '100%'} alignSelf="center">
+              <Image src={src} alt={photo.alt_description} width="100%" />
+            </Box>
 
-          {size === 'small'
+            {size === 'small'
           // These are the mobile version of stats that appear under
           // the image
           && <ImageStats
@@ -95,20 +92,11 @@ class PhotoDetails extends Component {
             downloads={downloads}
           />
           }
-        </Box>
+          </Box>
+        )}
 
-        {/* Rest of page */}
-        <Box alignSelf="center">
-          <Text as="h2" size="xlarge" textAlign="center">
-            other photos you might like
-          </Text>
-        </Box>
-        <ImageList
-          columns={columns}
-          searchTerm={this.state.searchTerm}
-          searched={this.state.searched}
-        />
-      </Box>
+      </ResponsiveContext>
+
     );
   }
 }

@@ -23,6 +23,8 @@ import {
   ScrollToTop,
 } from './components';
 
+import PhotoDetailsScreen from './screens/PhotoDetailsScreen';
+
 const initialState = {
   searched: false,
   searchTerm: '',
@@ -61,7 +63,10 @@ class App extends Component {
                       path="/"
                       render={() => (
                         <Box as="article">
-                          <Guideline tip="This application fetches images from Unsplash using Unsplash's API and uses Grommet Grid to create a responsive image layout. Below is a random set of images generated from Unsplash's featured images. The search bar can also be used to search Unsplash's library for a specific topic (e.g. dog, island, purple flower)." />
+                          {!this.state.searched ? <Guideline tip="This application fetches images from Unsplash using Unsplash's API and uses Grommet Grid to create a responsive image layout. Below is a random set of images generated from Unsplash's featured images. The search bar can also be used to search Unsplash's library for a specific topic (e.g. dog, island, purple flower)." />
+                            : <Guideline tip={`Showing Unsplash results for: ${this.state.searchTerm}. Click on an image for more details about it.`} />
+                          }
+
                           <ImageList
                             columns={size !== 'small' ? 'medium' : '100%'}
                             searchTerm={this.state.searchTerm}
@@ -70,11 +75,11 @@ class App extends Component {
                         </Box>
                       )}
                     />
-                    <Route
+                    {/* <Route
                       path="/?:query"
                       render={() => (
                         <Box>
-                          <Guideline tip={`Showing Unsplash results for: ${this.state.searchTerm}. Click on an image for more details about it.`} />
+
                           <ImageList
                             columns={size !== 'small' ? 'medium' : '100%'}
                             searchTerm={this.state.searchTerm}
@@ -82,15 +87,15 @@ class App extends Component {
                           />
                         </Box>
                       )}
-                    />
+                    /> */}
                     <Route
                       path="/:id"
                       render={props => (
-                        <PhotoDetails
-                          as="article"
-                          {...props}
+                        <PhotoDetailsScreen
                           columns={size !== 'small' ? 'medium' : '100%'}
-                          size={size}
+                          searchTerm={this.state.searchTerm}
+                          searched={this.state.searched}
+                          {...props}
                         />
                       )}
                     />
