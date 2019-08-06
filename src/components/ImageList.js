@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   Box,
   Grid,
+  ResponsiveContext,
   Text,
 } from 'grommet';
 import {
@@ -56,9 +57,13 @@ const ImageList = ({ columns, searchTerm, searched }) => {
     );
   } if (loadingStatus === 'Success') {
     return (
-      <Grid rows="medium" columns={columns} gap="small">
-        {data.map(photo => <Thumbnail key={photo.id} photo={photo} />)}
-      </Grid>
+      <ResponsiveContext>
+        {size => (
+          <Grid rows="medium" columns={size !== 'small' ? 'medium' : '100%'} gap="small">
+            {data.map(photo => <Thumbnail key={photo.id} photo={photo} />)}
+          </Grid>
+        )}
+      </ResponsiveContext>
     );
   }
   return (
@@ -73,5 +78,4 @@ export default ImageList;
 ImageList.propTypes = {
   searchTerm: PropTypes.string.isRequired,
   searched: PropTypes.bool.isRequired,
-  columns: PropTypes.string.isRequired,
 };

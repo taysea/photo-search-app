@@ -5,9 +5,7 @@ import {
   Image,
   ResponsiveContext,
 } from 'grommet';
-import ImageList from './ImageList';
 import config from '../config';
-import Guideline from './Guideline';
 import ProfileInformation from './ProfileInformation';
 import ImageStats from './ImageStats';
 
@@ -18,13 +16,11 @@ class PhotoDetails extends Component {
 
   componentDidMount() {
     this.getImage();
-    // this.props.generateRandomImages();
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
       this.getImage();
-      // this.props.generateRandomImages();
     }
   }
 
@@ -107,11 +103,9 @@ PhotoDetails.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
-  columns: PropTypes.string.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  size: PropTypes.string.isRequired,
 };

@@ -19,11 +19,11 @@ import {
   ImageList,
   Footer,
   Header,
-  PhotoDetails,
   ScrollToTop,
 } from './components';
 
 import PhotoDetailsScreen from './screens/PhotoDetailsScreen';
+import MainScreen from './screens/MainScreen';
 
 const initialState = {
   searched: false,
@@ -56,30 +56,22 @@ class App extends Component {
                     onSearchSubmit={this.handleSearchSubmit}
                     onReload={this.resetState}
                   />
-                  {/* <Box as="article"> */}
                   <Switch>
                     <Route
                       exact
                       path="/"
                       render={() => (
-                        <Box as="article">
-                          {!this.state.searched ? <Guideline tip="This application fetches images from Unsplash using Unsplash's API and uses Grommet Grid to create a responsive image layout. Below is a random set of images generated from Unsplash's featured images. The search bar can also be used to search Unsplash's library for a specific topic (e.g. dog, island, purple flower)." />
-                            : <Guideline tip={`Showing Unsplash results for: ${this.state.searchTerm}. Click on an image for more details about it.`} />
-                          }
-
-                          <ImageList
-                            columns={size !== 'small' ? 'medium' : '100%'}
-                            searchTerm={this.state.searchTerm}
-                            searched={this.state.searched}
-                          />
-                        </Box>
+                        <MainScreen
+                          searchTerm={this.state.searchTerm}
+                          searched={this.state.searched}
+                        />
                       )}
                     />
                     {/* <Route
                       path="/?:query"
                       render={() => (
                         <Box>
-
+                        <Guideline tip={`Showing Unsplash results for: ${this.state.searchTerm}. Click on an image for more details about it.`} />
                           <ImageList
                             columns={size !== 'small' ? 'medium' : '100%'}
                             searchTerm={this.state.searchTerm}
@@ -100,7 +92,6 @@ class App extends Component {
                       )}
                     />
                   </Switch>
-                  {/* </Box> */}
                   <Footer />
                 </Box>
               </ScrollToTop>
