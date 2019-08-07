@@ -28,6 +28,7 @@ const ImageList = ({ ...props }) => {
   useEffect(() => {
     async function fetchPhotos() {
       try {
+        setLoadingStatus(STATUSES.LOADING);
         let res = {};
         if (query) {
           res = await fetch(`https://api.unsplash.com/photos/random/?client_id=${config.apiKey}&count=20&featured=true&query=${query}`);
@@ -48,7 +49,7 @@ const ImageList = ({ ...props }) => {
       }
     }
     fetchPhotos();
-  }, [query]);
+  }, [query, props.history.location]);
 
   if (loadingStatus === STATUSES.LOADING) {
     return (
