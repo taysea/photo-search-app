@@ -43,6 +43,7 @@ class PhotoDetails extends Component {
     }
   }
 
+
   render() {
     const {
       photo, src, profilePic, name, username, likes, views, downloads,
