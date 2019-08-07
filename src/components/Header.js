@@ -6,7 +6,6 @@ import {
 import {
   Camera,
 } from 'grommet-icons';
-import PropTypes from 'prop-types';
 import {
   Link,
   SearchForm,

@@ -12,20 +12,16 @@ import {
 import Thumbnail from './Thumbnail';
 import config from '../config';
 
-const statuses = {
-  loading: 'loading',
-  none: 'no images',
-  success: 'success',
-  error: 'error',
+const STATUSES = {
+  LOADING: 'loading',
+  SUCCESS: 'success',
+  NONE: 'no images',
+  ERROR: 'error',
 };
 
 const ImageList = ({ ...props }) => {
-  const {
-    loading, none, success, error,
-  } = statuses;
-
   const [data, setData] = useState({ photos: [] });
-  const [loadingStatus, setLoadingStatus] = useState(loading);
+  const [loadingStatus, setLoadingStatus] = useState(STATUSES.LOADING);
 
   const query = props.history.location.search.substr(1);
 
@@ -41,26 +37,26 @@ const ImageList = ({ ...props }) => {
         const photos = await res.json();
         if (res.ok && photos.length > 0) {
           setData(photos);
-          setLoadingStatus(success);
+          setLoadingStatus(STATUSES.SUCCESS);
         } else if (res.ok && photos.length === 0) {
-          setLoadingStatus(none);
+          setLoadingStatus(STATUSES.NONE);
         } else {
-          setLoadingStatus(error);
+          setLoadingStatus(STATUSES.ERROR);
         }
       } catch (e) {
-        setLoadingStatus(error);
+        setLoadingStatus(STATUSES.ERROR);
       }
     }
     fetchPhotos();
-  }, [error, none, query, success]);
+  }, [query]);
 
-  if (loadingStatus === loading) {
+  if (loadingStatus === STATUSES.LOADING) {
     return (
       <Box full align="center" justify="center">
         <Spinner />
       </Box>
     );
-  } if (loadingStatus === none) {
+  } if (loadingStatus === STATUSES.NONE) {
     return (
       <Box>
         <Text alignSelf="center">
@@ -68,7 +64,7 @@ const ImageList = ({ ...props }) => {
         </Text>
       </Box>
     );
-  } if (loadingStatus === success) {
+  } if (loadingStatus === STATUSES.SUCCESS) {
     return (
       <ResponsiveContext.Consumer>
         {size => (
