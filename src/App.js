@@ -23,7 +23,7 @@ import {
 import {
   Intro,
   PhotoDetailsScreen,
-  MainScreen,
+  SearchResultsScreen,
 } from './screens';
 
 const App = () => (
@@ -38,6 +38,13 @@ const App = () => (
               path="/"
               render={props => (
                 <Intro {...props} />
+              )}
+            />
+            <Route
+              exact
+              path="/search/"
+              render={props => (
+                <SearchResultsScreen {...props} />
               )}
             />
             <Route

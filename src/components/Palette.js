@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Box,
   Button,
+  Heading,
   ResponsiveContext,
   Text,
 } from 'grommet';
@@ -33,6 +34,8 @@ export class Palette extends Component {
         src: photo.urls.regular,
         user: photo.user.name,
         alt: photo.alt_description,
+        height: photo.height,
+        width: photo.width,
       });
     } catch (e) {
       // console.log(e);
@@ -46,8 +49,10 @@ export class Palette extends Component {
     const {
       alt,
       colors,
+      height,
       src,
       user,
+      width,
     } = this.state;
 
     return (
@@ -57,59 +62,67 @@ export class Palette extends Component {
             gap="medium"
             width={size !== 'small' ? 'xlarge' : '100%'}
             alignSelf="center"
-            direction={size !== 'small' ? 'row' : 'column'}
-            // justify="center"
             margin={{ bottom: 'medium' }}
           >
             <Box
-              width={size !== 'small' ? '50%' : '100%'}
-              gap="small"
               margin={{ bottom: 'medium' }}
             >
               <Box
-                width="large"
-                overflow="hidden"
+                align="center"
+                gap="small"
               >
-                <ColorExtractor getColors={this.getColors}>
-                  <img src={src} width="100%" alt={alt} />
-                </ColorExtractor>
+                <Box
+                  width={(size !== 'small' && height >= 0.85 * width) ? 'medium' : 'large'}
+                  overflow="hidden"
+                  // alignSelf="center"
+                >
+                  <ColorExtractor getColors={this.getColors}>
+                    <img src={src} width="100%" alt={alt} />
+                  </ColorExtractor>
+                </Box>
+                <Text
+                  color="light-5"
+                  size="small"
+                >
+                  {`photo by ${user} from Unsplash`}
+                </Text>
               </Box>
-              <Text
-                color="dark-3"
-                size="small"
-              >
-                {`photo by ${user} from Unsplash`}
-              </Text>
+
 
             </Box>
 
-            <Box
-              width={size !== 'small' ? '50%' : '100%'}
-            >
-              <Box
-                direction={size !== 'small' ? 'row' : 'column'}
-                gap="small"
-                wrap
+            <Box>
+              <Text
+                size="large"
+                textAlign="center"
               >
-                {colors.map((color, id) => (
-                  <Button
-                    margin={{ bottom: 'small' }}
+                based on this photo, we'd recommend you try these colors:
+              </Text>
+            </Box>
+            <Box
+              direction={size !== 'small' ? 'row' : 'column'}
+              gap="small"
+              justify="center"
+              wrap
+            >
+              {colors.map((color, id) => (
+                <Button
+                  margin={{ bottom: 'small' }}
+                >
+                  <Box
+                    key={id}
+                    background={color}
+                    round="small"
+                    width={size !== 'small' ? 'xsmall' : '100%'}
+                    height="xsmall"
+                    align="center"
+                    justify="center"
                   >
-                    <Box
-                      key={id}
-                      background={color}
-                      round="small"
-                      width={size !== 'small' ? 'small' : '100%'}
-                      height="xsmall"
-                      align="center"
-                      justify="center"
-                    >
-                      <Text>{color}</Text>
-                    </Box>
-                  </Button>
+                    <Text>{color}</Text>
+                  </Box>
+                </Button>
 
-                ))}
-              </Box>
+              ))}
             </Box>
 
           </Box>
