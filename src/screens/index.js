@@ -1,3 +1,3 @@
 export { default as Intro } from './Intro';
 export { default as PhotoDetailsScreen } from './PhotoDetailsScreen';
-export { default as MainScreen } from './MainScreen';
+export { default as SearchResultsScreen } from './SearchResultsScreen';

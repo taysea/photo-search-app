@@ -14,7 +14,7 @@ const PhotoDetailsScreen = props => (
   <Box
     gap="medium"
   >
-    <Guideline tip="This page fetches data specific to the image that was clicked— including information about the user who uploaded the image and statistics regarding number of views, likes, and downloads." width="large" />
+    {/* <Guideline tip="This page fetches data specific to the image that was clicked— including information about the user who uploaded the image and statistics regarding number of views, likes, and downloads." width="large" /> */}
 
     <Palette {...props} />
 

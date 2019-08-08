@@ -2,10 +2,9 @@ import React from 'react';
 import {
   Box,
   Heading,
-  Text,
   ResponsiveContext,
 } from 'grommet';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import {
   FormNext,
 } from 'grommet-icons';
@@ -63,7 +62,8 @@ const Intro = props => (
             size="small"
             textAlign="center"
           >
-           Let photos you like help you find the right color palette for your project. Go ahead. Click on a photo you like, or search for one.
+           Let photos you like help you find the right color palette for your project.
+           Go ahead. Click on a photo you like, or search for one.
           </Heading>
 
           <Box

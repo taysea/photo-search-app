@@ -25,7 +25,7 @@ class SearchForm extends Component {
     this.setState({
       searchTerm: '',
     }, this.props.history.push({
-      pathname: '/',
+      pathname: '/search/',
       search: `${this.state.searchTerm}`,
     }));
   }
