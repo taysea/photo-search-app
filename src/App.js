@@ -1,4 +1,5 @@
 import './reset.css';
+import './App.css';
 import React from 'react';
 import {
   Box,
@@ -20,6 +21,7 @@ import {
 } from './components';
 
 import {
+  Intro,
   PhotoDetailsScreen,
   MainScreen,
 } from './screens';
@@ -28,14 +30,14 @@ const App = () => (
   <Grommet theme={customTheme} full>
     <Router>
       <ScrollToTop>
-        <Box gap="medium" pad="large">
+        <Box gap="medium" pad="large" className="App">
           <Header />
           <Switch>
             <Route
               exact
               path="/"
               render={props => (
-                <MainScreen {...props} />
+                <Intro {...props} />
               )}
             />
             <Route

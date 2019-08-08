@@ -2,10 +2,10 @@ import React from 'react';
 import {
   Box,
   Heading,
+  Image,
+  Text,
 } from 'grommet';
-import {
-  Camera,
-} from 'grommet-icons';
+import logo from '../assets/logo.png';
 import {
   Link,
   SearchForm,
@@ -18,12 +18,14 @@ const Header = () => (
         to="/"
       >
         <Box direction="row" gap="small" align="center">
-          <Camera size="large" color="dark-1" />
-          <Heading size="small" color="dark-1">a responsive photo gallery</Heading>
+          <Box width="xxsmall" height="xxsmall">
+            <Image src={logo} alt="Color Palette Generator Logo" fit="cover" />
+          </Box>
+          <Heading size="small" color="dark-1">color palette generator</Heading>
         </Box>
 
       </Link>
-      <Heading size="xsmall" color="dark-1">created using Grommet and Unsplash's API</Heading>
+      <Text color="dark-1">created using Grommet, Unsplash, and React Color Palette</Text>
     </Box>
     <SearchForm />
   </Box>

@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import {
+  Box,
+  Image,
+} from 'grommet';
 
 const Thumbnail = ({ photo }) => (
   <Link to={`/${photo.id}`}>
-    <Image src={photo.urls.regular} alt={photo.alt_description} />
+    <Box height="100%" width="100%" overflow="hidden">
+      <Image src={photo.urls.regular} alt={photo.alt_description} fit="cover" />
+    </Box>
+
   </Link>
 );
 
@@ -20,9 +26,3 @@ Thumbnail.propTypes = {
     },
   }).isRequired,
 };
-
-export const Image = styled.img`
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-`;

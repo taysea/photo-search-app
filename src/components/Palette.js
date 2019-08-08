@@ -1,19 +1,13 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import {
   Box,
+  Button,
   ResponsiveContext,
   Text,
 } from 'grommet';
 import { ColorExtractor } from 'react-color-extractor';
 import PropTypes from 'prop-types';
 import config from '../config';
-
-const STATUSES = {
-  LOADING: 'loading',
-  SUCCESS: 'success',
-  NONE: 'no images',
-  ERROR: 'error',
-};
 
 export class Palette extends Component {
   state = { colors: [] };
@@ -37,6 +31,7 @@ export class Palette extends Component {
       const photo = await res.json();
       this.setState({
         src: photo.urls.regular,
+        user: photo.user.name,
         alt: photo.alt_description,
       });
     } catch (e) {
@@ -52,6 +47,7 @@ export class Palette extends Component {
       alt,
       colors,
       src,
+      user,
     } = this.state;
 
     return (
@@ -59,16 +55,32 @@ export class Palette extends Component {
         {size => (
           <Box
             gap="medium"
-            width={size !== 'small' ? 'xxlarge' : '100%'}
+            width={size !== 'small' ? 'xlarge' : '100%'}
             alignSelf="center"
             direction={size !== 'small' ? 'row' : 'column'}
+            // justify="center"
+            margin={{ bottom: 'medium' }}
           >
             <Box
               width={size !== 'small' ? '50%' : '100%'}
+              gap="small"
+              margin={{ bottom: 'medium' }}
             >
-              <ColorExtractor getColors={this.getColors}>
-                <img src={src} width="100%" alt={alt} />
-              </ColorExtractor>
+              <Box
+                width="large"
+                overflow="hidden"
+              >
+                <ColorExtractor getColors={this.getColors}>
+                  <img src={src} width="100%" alt={alt} />
+                </ColorExtractor>
+              </Box>
+              <Text
+                color="dark-3"
+                size="small"
+              >
+                {`photo by ${user} from Unsplash`}
+              </Text>
+
             </Box>
 
             <Box
@@ -80,18 +92,22 @@ export class Palette extends Component {
                 wrap
               >
                 {colors.map((color, id) => (
-                  <Box
-                    key={id}
-                    background={color}
-                    round="small"
-                    width={size !== 'small' ? 'small' : '100%'}
-                    height="xsmall"
-                    align="center"
-                    justify="center"
+                  <Button
                     margin={{ bottom: 'small' }}
                   >
-                    <Text>{color}</Text>
-                  </Box>
+                    <Box
+                      key={id}
+                      background={color}
+                      round="small"
+                      width={size !== 'small' ? 'small' : '100%'}
+                      height="xsmall"
+                      align="center"
+                      justify="center"
+                    >
+                      <Text>{color}</Text>
+                    </Box>
+                  </Button>
+
                 ))}
               </Box>
             </Box>
