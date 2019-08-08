@@ -59,46 +59,43 @@ export class Palette extends Component {
       <ResponsiveContext.Consumer>
         {size => (
           <Box
+            background={size !== 'small' ? 'light-2' : 'white'}
+            round="small"
+            pad={size !== 'small' ? 'large' : 'none'}
             gap="medium"
-            width={size !== 'small' ? 'xlarge' : '100%'}
+            width="100%"
+            // width={size !== 'small' ? 'xlarge' : '100%'}
             alignSelf="center"
-            margin={{ bottom: 'medium' }}
+            margin={{ bottom: 'small' }}
           >
-            <Box
-              margin={{ bottom: 'medium' }}
-            >
-              <Box
-                align="center"
-                gap="small"
-              >
-                <Box
-                  width={(size !== 'small' && height >= 0.85 * width) ? 'medium' : 'large'}
-                  overflow="hidden"
-                  // alignSelf="center"
-                >
-                  <ColorExtractor getColors={this.getColors}>
-                    <img src={src} width="100%" alt={alt} />
-                  </ColorExtractor>
-                </Box>
-                <Text
-                  color="light-5"
-                  size="small"
-                >
-                  {`photo by ${user} from Unsplash`}
-                </Text>
-              </Box>
-
-
-            </Box>
-
             <Box>
               <Text
-                size="large"
+                size={size !== 'small' ? 'xxlarge' : 'large'}
                 textAlign="center"
               >
-                based on this photo, we'd recommend you try these colors:
+                based on this photo, we think you'll like these colors:
               </Text>
             </Box>
+            <Box
+              align="center"
+              gap="xsmall"
+            >
+              <Box
+                width={(size !== 'small' && height >= 0.85 * width) ? 'small' : 'medium'}
+                overflow="hidden"
+              >
+                <ColorExtractor getColors={this.getColors}>
+                  <img src={src} width="100%" alt={alt} />
+                </ColorExtractor>
+              </Box>
+              <Text
+                color="dark-5"
+                size="xsmall"
+              >
+                {`photo by ${user} from Unsplash`}
+              </Text>
+            </Box>
+
             <Box
               direction={size !== 'small' ? 'row' : 'column'}
               gap="small"

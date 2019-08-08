@@ -21,7 +21,13 @@ const Header = () => (
           <Box width="xxsmall" height="xxsmall">
             <Image src={logo} alt="Color Palette Generator Logo" fit="cover" />
           </Box>
-          <Heading size="small" color="dark-1">color palette generator</Heading>
+          <Heading
+            size="small"
+            color="dark-1"
+            margin="none"
+          >
+            color palette generator
+          </Heading>
         </Box>
 
       </Link>

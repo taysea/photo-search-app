@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Box,
+  Heading,
   Text,
 } from 'grommet';
 import {
@@ -14,11 +15,12 @@ const PhotoDetailsScreen = props => (
   <Box
     gap="medium"
   >
-    {/* <Guideline tip="This page fetches data specific to the image that was clicked— including information about the user who uploaded the image and statistics regarding number of views, likes, and downloads." width="large" /> */}
-
     <Palette {...props} />
 
-    <Text as="h2" size="xlarge" textAlign="center">other photos you might like</Text>
+    <Box>
+      <Text size="large" textAlign="center" margin="none">still looking for something different?</Text>
+    </Box>
+
 
     <ImageList {...props} />
   </Box>
