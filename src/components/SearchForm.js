@@ -20,6 +20,9 @@ class SearchForm extends Component {
   onFormSubmit = (event) => {
     event.preventDefault();
 
+    if (this.state.searchTerm.length < 1) {
+      return;
+    }
     // This clears the value in the input
     // so the placeholder returns
     this.setState({

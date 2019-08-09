@@ -2,16 +2,20 @@ import React, { Component } from 'react';
 import {
   Box,
   Button,
-  Heading,
   ResponsiveContext,
   Text,
 } from 'grommet';
 import { ColorExtractor } from 'react-color-extractor';
+import copy from 'copy-to-clipboard';
 import PropTypes from 'prop-types';
 import config from '../config';
 
 export class Palette extends Component {
-  state = { colors: [] };
+  state = {
+    colors: [],
+    copied: false,
+    copiedText: '',
+  };
 
   componentDidMount() {
     this.getImage();
@@ -21,6 +25,7 @@ export class Palette extends Component {
     if (this.props.location.pathname !== prevProps.location.pathname) {
       this.getImage();
     }
+    console.log('updated');
   }
 
   getImage = async () => {
@@ -49,6 +54,7 @@ export class Palette extends Component {
     const {
       alt,
       colors,
+      copied,
       height,
       src,
       user,
@@ -95,7 +101,6 @@ export class Palette extends Component {
                 {`photo by ${user} from Unsplash`}
               </Text>
             </Box>
-
             <Box
               direction={size !== 'small' ? 'row' : 'column'}
               gap="small"
@@ -103,24 +108,40 @@ export class Palette extends Component {
               wrap
             >
               {colors.map((color, id) => (
-                <Button
-                  margin={{ bottom: 'small' }}
-                >
-                  <Box
-                    key={id}
-                    background={color}
-                    round="small"
-                    width={size !== 'small' ? 'xsmall' : '100%'}
-                    height="xsmall"
-                    align="center"
-                    justify="center"
+                <Box>
+                  <Button
+                    margin={{ bottom: 'small' }}
+                    onClick={() => {
+                      copy(color);
+                      this.setState({
+                        copied: true,
+                        copiedText: color,
+                      });
+                    }}
                   >
-                    <Text>{color}</Text>
-                  </Box>
-                </Button>
-
+                    <Box
+                      key={id}
+                      background={color}
+                      round="small"
+                      width={size !== 'small' ? 'xsmall' : '100%'}
+                      height="xsmall"
+                      align="center"
+                      justify="center"
+                    >
+                      <Text>{color}</Text>
+                    </Box>
+                  </Button>
+                </Box>
               ))}
             </Box>
+            {copied && (
+              <Text
+                color="status-ok"
+                textAlign="center"
+              >
+copied to clipboard!
+              </Text>
+            )}
 
           </Box>
         )}

@@ -26,14 +26,14 @@ const colorRowTwo = [
 const Intro = props => (
   <ResponsiveContext.Consumer>
     {size => (
-      <Box gap="large">
+      <Box gap="medium">
         <Box
           width={size !== 'small' ? 'xlarge' : '100%'}
           justify="center"
           align="center"
           alignSelf="center"
           gap="medium"
-          pad={{ top: 'medium' }}
+          pad={{ top: 'small' }}
         >
           <Box
             gap="small"
