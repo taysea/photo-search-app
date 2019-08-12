@@ -22,24 +22,29 @@ const Palette = (props) => {
   const [loadingStatus, setLoadingStatus] = useState(STATUSES.LOADING);
   const [copyStatus, setCopyStatus] = useState(false);
   const [colors, setColors] = useState([]);
+  const { setPageLoadingStatus } = props;
+
+  const fetchPhoto = async () => {
+    try {
+      setLoadingStatus(STATUSES.LOADING);
+      setCopyStatus(false);
+      const res = await fetch(`https://api.unsplash.com/photos/${props.match.params.id}?client_id=${config.apiKey}`);
+      const photo = await res.json();
+      if (res.ok) {
+        setData(photo);
+        setLoadingStatus(STATUSES.SUCCESS);
+        setPageLoadingStatus(false);
+      } else {
+        setLoadingStatus(STATUSES.ERROR);
+        setPageLoadingStatus(false);
+      }
+    } catch (e) {
+      setLoadingStatus(STATUSES.ERROR);
+      setPageLoadingStatus(false);
+    }
+  };
 
   useEffect(() => {
-    async function fetchPhoto() {
-      try {
-        setLoadingStatus(STATUSES.LOADING);
-        setCopyStatus(false);
-        const res = await fetch(`https://api.unsplash.com/photos/${props.match.params.id}?client_id=${config.apiKey}`);
-        const photo = await res.json();
-        if (res.ok) {
-          setData(photo);
-          setLoadingStatus(STATUSES.SUCCESS);
-        } else {
-          setLoadingStatus(STATUSES.ERROR);
-        }
-      } catch (e) {
-        setLoadingStatus(STATUSES.ERROR);
-      }
-    }
     fetchPhoto();
   }, [props.history.location, props.match.params.id]);
 
@@ -62,7 +67,6 @@ const Palette = (props) => {
               pad={size !== 'small' ? 'large' : 'none'}
               gap="medium"
               width="100%"
-              // width={size !== 'small' ? 'xlarge' : '100%'}
               alignSelf="center"
               margin={{ bottom: 'small' }}
             >
@@ -128,7 +132,7 @@ const Palette = (props) => {
                   color="status-ok"
                   textAlign="center"
                 >
-  copied to clipboard!
+                  copied to clipboard!
                 </Text>
               )}
 
@@ -146,147 +150,6 @@ const Palette = (props) => {
 
 export default Palette;
 
-// export class Palette extends Component {
-//   state = {
-//     colors: [],
-//     copied: false,
-//     copiedText: '',
-//   };
-
-//   componentDidMount() {
-//     this.getImage();
-//   }
-
-//   componentDidUpdate(prevProps) {
-//     if (this.props.location.pathname !== prevProps.location.pathname) {
-//       this.getImage();
-//     }
-//     console.log('updated');
-//   }
-
-//   getImage = async () => {
-//     try {
-//       this.setState({
-//         colors: [],
-//       });
-//       const res = await fetch(`https://api.unsplash.com/photos/${this.props.match.params.id}?client_id=${config.apiKey}`);
-//       const photo = await res.json();
-//       this.setState({
-//         src: photo.urls.regular,
-//         user: photo.user.name,
-//         alt: photo.alt_description,
-//         height: photo.height,
-//         width: photo.width,
-//       });
-//     } catch (e) {
-//       // console.log(e);
-//     }
-//   }
-
-//   getColors = colors =>
-//     this.setState(state => ({ colors: [...state.colors, ...colors] }));
-
-//   render() {
-//     const {
-//       alt,
-//       colors,
-//       copied,
-//       height,
-//       src,
-//       user,
-//       width,
-//     } = this.state;
-
-//     return (
-//       <ResponsiveContext.Consumer>
-//         {size => (
-//           <Box
-//             background={size !== 'small' ? 'light-2' : 'white'}
-//             round="small"
-//             pad={size !== 'small' ? 'large' : 'none'}
-//             gap="medium"
-//             width="100%"
-//             // width={size !== 'small' ? 'xlarge' : '100%'}
-//             alignSelf="center"
-//             margin={{ bottom: 'small' }}
-//           >
-//             <Box>
-//               <Text
-//                 size={size !== 'small' ? 'xxlarge' : 'large'}
-//                 textAlign="center"
-//               >
-//                 based on this photo, we think you'll like these colors:
-//               </Text>
-//             </Box>
-//             <Box
-//               align="center"
-//               gap="xsmall"
-//             >
-//               <Box
-//                 width={(size !== 'small' && height >= 0.85 * width) ? 'small' : 'medium'}
-//                 overflow="hidden"
-//               >
-//                 <ColorExtractor getColors={this.getColors}>
-//                   <img src={src} width="100%" alt={alt} />
-//                 </ColorExtractor>
-//               </Box>
-//               <Text
-//                 color="dark-5"
-//                 size="xsmall"
-//               >
-//                 {`photo by ${user} from Unsplash`}
-//               </Text>
-//             </Box>
-//             <Box
-//               direction={size !== 'small' ? 'row' : 'column'}
-//               gap="small"
-//               justify="center"
-//               wrap
-//             >
-//               {colors.map((color, id) => (
-//                 <Box>
-//                   <Button
-//                     margin={{ bottom: 'small' }}
-//                     onClick={() => {
-//                       copy(color);
-//                       this.setState({
-//                         copied: true,
-//                         copiedText: color,
-//                       });
-//                     }}
-//                   >
-//                     <Box
-//                       key={id}
-//                       background={color}
-//                       round="small"
-//                       width={size !== 'small' ? 'xsmall' : '100%'}
-//                       height="xsmall"
-//                       align="center"
-//                       justify="center"
-//                     >
-//                       <Text>{color}</Text>
-//                     </Box>
-//                   </Button>
-//                 </Box>
-//               ))}
-//             </Box>
-//             {copied && (
-//               <Text
-//                 color="status-ok"
-//                 textAlign="center"
-//               >
-// copied to clipboard!
-//               </Text>
-//             )}
-
-//           </Box>
-//         )}
-
-//       </ResponsiveContext.Consumer>
-//     );
-//   }
-// }
-
 Palette.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
@@ -296,4 +159,5 @@ Palette.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  setPageLoadingStatus: PropTypes.func.isRequired,
 };

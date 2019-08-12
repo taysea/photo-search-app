@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Text,
@@ -8,21 +8,26 @@ import {
   Palette,
 } from '../components';
 import LoadingScreen from './LoadingScreen';
-
 // import { Palette } from '../components/Palette';
 
-const PhotoDetailsScreen = props => (
-  <Box
-    gap="medium"
-  >
-    <Palette {...props} />
+const PhotoDetailsScreen = (props) => {
+  const [isPalleteLoading, setPalleteLoading] = useState(true);
+  const [isListLoading, setListLoading] = useState(true);
 
-    <Box>
-      <Text size="large" textAlign="center" margin="none">still looking for something different?</Text>
+  return (
+    <Box
+      gap="medium"
+    >
+      {(isPalleteLoading || isListLoading) && <LoadingScreen />}
+      <Palette setPageLoadingStatus={status => setPalleteLoading(status)} {...props} />
+
+      <Box>
+        <Text size="large" textAlign="center" margin="none">still looking for something different?</Text>
+      </Box>
+
+      <ImageList setPageLoadingStatus={status => setListLoading(status)} {...props} />
     </Box>
-
-    <ImageList {...props} />
-  </Box>
-);
+  );
+};
 
 export default PhotoDetailsScreen;

@@ -19,35 +19,40 @@ const STATUSES = {
   ERROR: 'error',
 };
 
-const ImageList = ({ ...props }) => {
+const ImageList = (props) => {
   const [data, setData] = useState({ photos: [] });
   const [loadingStatus, setLoadingStatus] = useState(STATUSES.LOADING);
-
+  const { setPageLoadingStatus } = props;
   const query = props.history.location.search.substr(1);
 
-  useEffect(() => {
-    async function fetchPhotos() {
-      try {
-        setLoadingStatus(STATUSES.LOADING);
-        let res = {};
-        if (query) {
-          res = await fetch(`https://api.unsplash.com/photos/random/?client_id=${config.apiKey}&count=20&featured=true&query=${query}`);
-        } else {
-          res = await fetch(`https://api.unsplash.com/photos/random/?client_id=${config.apiKey}&count=20&featured=true`);
-        }
-        const photos = await res.json();
-        if (res.ok && photos.length > 0) {
-          setData(photos);
-          setLoadingStatus(STATUSES.SUCCESS);
-        } else if (res.ok && photos.length === 0) {
-          setLoadingStatus(STATUSES.NONE);
-        } else {
-          setLoadingStatus(STATUSES.ERROR);
-        }
-      } catch (e) {
-        setLoadingStatus(STATUSES.ERROR);
+  async function fetchPhotos() {
+    try {
+      setLoadingStatus(STATUSES.LOADING);
+      let res = {};
+      if (query) {
+        res = await fetch(`https://api.unsplash.com/photos/random/?client_id=${config.apiKey}&count=20&featured=true&query=${query}`);
+      } else {
+        res = await fetch(`https://api.unsplash.com/photos/random/?client_id=${config.apiKey}&count=20&featured=true`);
       }
+      const photos = await res.json();
+      if (res.ok && photos.length > 0) {
+        setData(photos);
+        setLoadingStatus(STATUSES.SUCCESS);
+        setPageLoadingStatus(false);
+      } else if (res.ok && photos.length === 0) {
+        setLoadingStatus(STATUSES.NONE);
+        setPageLoadingStatus(false);
+      } else {
+        setLoadingStatus(STATUSES.ERROR);
+        setPageLoadingStatus(false);
+      }
+    } catch (e) {
+      setLoadingStatus(STATUSES.ERROR);
+      setPageLoadingStatus(false);
     }
+  }
+
+  useEffect(() => {
     fetchPhotos();
   }, [query, props.history.location]);
 
@@ -93,4 +98,5 @@ ImageList.propTypes = {
       search: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  setPageLoadingStatus: PropTypes.func.isRequired,
 };
