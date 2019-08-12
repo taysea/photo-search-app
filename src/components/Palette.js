@@ -14,7 +14,6 @@ import { Spinner } from '.';
 const STATUSES = {
   LOADING: 'loading',
   SUCCESS: 'success',
-  NONE: 'no images',
   ERROR: 'error',
 };
 
@@ -28,6 +27,7 @@ const Palette = (props) => {
     async function fetchPhoto() {
       try {
         setLoadingStatus(STATUSES.LOADING);
+        setCopyStatus(false);
         const res = await fetch(`https://api.unsplash.com/photos/${props.match.params.id}?client_id=${config.apiKey}`);
         const photo = await res.json();
         if (res.ok) {
@@ -42,6 +42,10 @@ const Palette = (props) => {
     }
     fetchPhoto();
   }, [props.history.location, props.match.params.id]);
+
+  function getColors(colors) {
+    setColors(colors);
+  }
 
   switch (loadingStatus) {
     case STATUSES.LOADING:
@@ -78,7 +82,7 @@ const Palette = (props) => {
                   width={(size !== 'small' && data.height >= 0.85 * data.width) ? 'small' : 'medium'}
                   overflow="hidden"
                 >
-                  <ColorExtractor getColors={setColors()}>
+                  <ColorExtractor getColors={getColors}>
                     <img src={data.urls.regular} width="100%" alt={data.alt_description} />
                   </ColorExtractor>
                 </Box>
@@ -89,7 +93,7 @@ const Palette = (props) => {
                   {`photo by ${data.user.name} from Unsplash`}
                 </Text>
               </Box>
-              {/* <Box
+              <Box
                 direction={size !== 'small' ? 'row' : 'column'}
                 gap="small"
                 justify="center"
@@ -118,7 +122,7 @@ const Palette = (props) => {
                     </Button>
                   </Box>
                 ))}
-              </Box> */}
+              </Box>
               {copyStatus && (
                 <Text
                   color="status-ok"
