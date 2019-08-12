@@ -5,14 +5,6 @@ import {
   Text,
 } from 'grommet';
 
-const FooterLink = styled.a`
-  color: #DADADA,
-  text-decoration: none,
-  :hover {
-    text-decoration: underline;
-  }
-`;
-
 const Footer = () => (
   <Box as="footer" align="center" pad={{ top: 'medium' }}>
     <Text color="light-5">
