@@ -3,6 +3,7 @@ import {
   Box,
   Heading,
   Image,
+  ResponsiveContext,
   Text,
 } from 'grommet';
 import logo from '../assets/logo.png';
@@ -12,29 +13,36 @@ import {
 } from '.';
 
 const Header = () => (
-  <Box as="header" direction="row-responsive" gap="medium" pad={{ bottom: 'medium' }} justify="between">
-    <Box>
-      <Link
-        to="/"
-      >
-        <Box direction="row" gap="small" align="center">
-          <Box width="xxsmall" height="xxsmall">
-            <Image src={logo} alt="Color Palette Generator Logo" fit="cover" />
-          </Box>
-          <Heading
-            size="small"
-            color="dark-1"
-            margin="none"
+  <ResponsiveContext.Consumer>
+    {size => (
+      <Box as="header" direction="row-responsive" gap="medium" pad={{ bottom: 'medium' }} justify="between">
+        <Box>
+          <Link
+            to="/"
           >
+            <Box direction={size !== 'small' ? 'row' : 'column'} gap="small" align="center">
+              <Box width="xxsmall" height="xxsmall">
+                <Image src={logo} alt="Color Palette Generator Logo" fit="cover" />
+              </Box>
+              <Heading
+                size="small"
+                color="dark-1"
+                margin="none"
+              >
             color palette generator
-          </Heading>
-        </Box>
+              </Heading>
+            </Box>
+          </Link>
 
-      </Link>
-      <Text color="dark-1">created using Grommet, Unsplash, and React Color Palette</Text>
-    </Box>
-    <SearchForm />
-  </Box>
+          {size !== 'small'
+          && <Text color="dark-1">created using Grommet, Unsplash, and React Color Palette</Text>
+          }
+        </Box>
+        <SearchForm />
+      </Box>
+    )}
+
+  </ResponsiveContext.Consumer>
 );
 
 export default Header;

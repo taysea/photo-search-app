@@ -22,8 +22,9 @@ const STATUSES = {
 const ImageList = ({ ...props }) => {
   const [data, setData] = useState({ photos: [] });
   const [loadingStatus, setLoadingStatus] = useState(STATUSES.LOADING);
-
   const query = props.history.location.search.substr(1);
+  // const { setPageLoadingStatus } = props;
+
 
   useEffect(() => {
     async function fetchPhotos() {
@@ -54,7 +55,7 @@ const ImageList = ({ ...props }) => {
   switch (loadingStatus) {
     case STATUSES.LOADING:
       return (
-        <Box full align="center" justify="center">
+        <Box fill justify="center" align="center">
           <Spinner />
         </Box>
       );
@@ -78,8 +79,8 @@ const ImageList = ({ ...props }) => {
       );
     default:
       return (
-        <Box>
-          <Text alignSelf="center">Oh no! Something went wrong. Please try again in a little while.</Text>
+        <Box full justify="center" align="center">
+          Oh no! Something went wrong with loading images. Please try again in a little while.
         </Box>
       );
   }

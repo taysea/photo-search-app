@@ -1,11 +1,9 @@
 export { default as Guideline } from './Guideline';
 export { default as Header } from './Header';
 export { default as ImageList } from './ImageList';
-export { default as ImageStats } from './ImageStats';
 export { default as Footer } from './Footer';
 export { default as Link } from './Link';
 export { default as Palette } from './Palette';
-export { default as PhotoDetails } from './PhotoDetails';
 export { default as ProfileInformation } from './ProfileInformation';
 export { default as ScrollToTop } from './ScrollToTop';
 export { default as SearchForm } from './SearchForm';

@@ -8,7 +8,11 @@ export const customTheme = deepMerge(grommet, {
     },
     font: {
       family: "'Graphik', sans-serif",
-      face: "@font-face {\nfont-family: 'Graphik';\nsrc: url('/fonts/Graphik.woff') format('woff');\n}\n",
+      face: `@font-face {
+        font-family: 'Graphik';
+        src: url('/fonts/Graphik.woff') format('woff');
+      }
+      `,
     },
   },
 });

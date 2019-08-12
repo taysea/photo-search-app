@@ -40,14 +40,12 @@ const App = () => (
               )}
             />
             <Route
-              exact
               path="/search/"
               render={props => (
                 <SearchResultsScreen {...props} />
               )}
             />
             <Route
-              exact
               path="/how-it-works"
               render={props => (
                 <HowItWorks {...props} />

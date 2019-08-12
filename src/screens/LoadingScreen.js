@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Box,
   Layer,
-  Text,
 } from 'grommet';
 
 import {
@@ -11,7 +10,7 @@ import {
 
 const LoadingScreen = () => (
   <Layer
-    animation="fadeIn"
+    animate="false"
     full
   >
     <Box
@@ -21,7 +20,6 @@ const LoadingScreen = () => (
       gap="medium"
     >
       <Spinner />
-      {/* <Text>just a sec, getting everything ready for you!</Text> */}
     </Box>
 
   </Layer>

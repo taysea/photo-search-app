@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Text,
@@ -8,8 +8,6 @@ import {
   Palette,
 } from '../components';
 import LoadingScreen from './LoadingScreen';
-
-// import { Palette } from '../components/Palette';
 
 const PhotoDetailsScreen = props => (
   <Box
@@ -24,5 +22,4 @@ const PhotoDetailsScreen = props => (
     <ImageList {...props} />
   </Box>
 );
-
 export default PhotoDetailsScreen;
