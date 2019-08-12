@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -9,95 +9,127 @@ import config from '../config';
 import ProfileInformation from './ProfileInformation';
 import ImageStats from './ImageStats';
 
-class PhotoDetails extends Component {
-  state = {
-    photo: {},
-  }
+const STATUSES = {
+  LOADING: 'loading',
+  SUCCESS: 'success',
+  NONE: 'no images',
+  ERROR: 'error',
+};
 
-  componentDidMount() {
-    this.getImage();
-  }
+const PhotoDetails = (props) => {
+  const [data, setData] = useState({});
+  const [loadingStatus, setLoadingStatus] = useState(STATUSES.LOADING);
 
-  componentDidUpdate(prevProps) {
-    if (this.props.location.pathname !== prevProps.location.pathname) {
-      this.getImage();
+  useEffect(() => {
+    async function fetchPhoto() {
+      try {
+        setLoadingStatus(STATUSES.LOADING);
+        const res = await fetch(`https://api.unsplash.com/photos/${props.match.params.id}?client_id=${config.apiKey}`);
+        const photo = await res.json();
+        if (res.ok) {
+          setData(photo);
+          setLoadingStatus(STATUSES.SUCCESS);
+        } else {
+          setLoadingStatus(STATUSES.ERROR);
+        }
+      } catch (e) {
+        setLoadingStatus(STATUSES.ERROR);
+      }
     }
-  }
-
-  getImage = async () => {
-    try {
-      const res = await fetch(`https://api.unsplash.com/photos/${this.props.match.params.id}?client_id=${config.apiKey}`);
-      const photo = await res.json();
-      this.setState({
-        photo,
-        src: photo.urls.regular,
-        profilePic: photo.user.profile_image.medium,
-        name: photo.user.name,
-        username: photo.user.username,
-        likes: photo.likes,
-        views: photo.views,
-        downloads: photo.downloads,
-      });
-    } catch (e) {
-      // console.log(e);
-    }
-  }
-
-
-  render() {
-    const {
-      photo, src, profilePic, name, username, likes, views, downloads,
-    } = this.state;
-
-    return (
-      <ResponsiveContext.Consumer>
-        {size => (
-          <Box
-            gap="medium"
-            border={size === 'small' && { side: 'bottom', color: 'light-5', style: 'solid' }} // Create bottom-border on mobile
-            pad={{ bottom: 'large' }}
-          >
-            <Box direction="row" justify="between">
-              <ProfileInformation
-                profilePic={profilePic}
-                name={name}
-                username={username}
-              />
-              {size !== 'small'
-            // Only show this on desktop
-            // These are the stats in a row above featured image
-            && <ImageStats
-              views={views}
-              likes={likes}
-              downloads={downloads}
-              direction="row"
-              wrap
-            />
-            }
-            </Box>
-
-            <Box width={size !== 'small' ? 'large' : '100%'} alignSelf="center">
-              <Image src={src} alt={photo.alt_description} width="100%" />
-            </Box>
-
-            {size === 'small'
-          // These are the mobile version of stats that appear under
-          // the image
-          && <ImageStats
-            views={views}
-            likes={likes}
-            downloads={downloads}
-          />
-          }
-          </Box>
-        )}
-
-      </ResponsiveContext.Consumer>
-    );
-  }
-}
+    fetchPhoto();
+  }, [props.history.location, props.match.params.id]);
+};
 
 export default PhotoDetails;
+// class PhotoDetails extends Component {
+//   state = {
+//     photo: {},
+//   }
+
+//   componentDidMount() {
+//     this.getImage();
+//   }
+
+//   componentDidUpdate(prevProps) {
+//     if (this.props.location.pathname !== prevProps.location.pathname) {
+//       this.getImage();
+//     }
+//   }
+
+//   getImage = async () => {
+//     try {
+//       const res = await fetch(`https://api.unsplash.com/photos/${this.props.match.params.id}?client_id=${config.apiKey}`);
+//       const photo = await res.json();
+//       this.setState({
+//         photo,
+//         src: photo.urls.regular,
+//         profilePic: photo.user.profile_image.medium,
+//         name: photo.user.name,
+//         username: photo.user.username,
+//         likes: photo.likes,
+//         views: photo.views,
+//         downloads: photo.downloads,
+//       });
+//     } catch (e) {
+//       // console.log(e);
+//     }
+//   }
+
+
+//   render() {
+//     const {
+//       photo, src, profilePic, name, username, likes, views, downloads,
+//     } = this.state;
+
+//     return (
+//       <ResponsiveContext.Consumer>
+//         {size => (
+//           <Box
+//             gap="medium"
+//             border={size === 'small' && { side: 'bottom', color: 'light-5', style: 'solid' }} // Create bottom-border on mobile
+//             pad={{ bottom: 'large' }}
+//           >
+//             <Box direction="row" justify="between">
+//               <ProfileInformation
+//                 profilePic={profilePic}
+//                 name={name}
+//                 username={username}
+//               />
+//               {size !== 'small'
+//             // Only show this on desktop
+//             // These are the stats in a row above featured image
+//             && <ImageStats
+//               views={views}
+//               likes={likes}
+//               downloads={downloads}
+//               direction="row"
+//               wrap
+//             />
+//             }
+//             </Box>
+
+//             <Box width={size !== 'small' ? 'large' : '100%'} alignSelf="center">
+//               <Image src={src} alt={photo.alt_description} width="100%" />
+//             </Box>
+
+//             {size === 'small'
+//           // These are the mobile version of stats that appear under
+//           // the image
+//           && <ImageStats
+//             views={views}
+//             likes={likes}
+//             downloads={downloads}
+//           />
+//           }
+//           </Box>
+//         )}
+
+//       </ResponsiveContext.Consumer>
+//     );
+//   }
+// }
+
+// export default PhotoDetails;
 
 PhotoDetails.propTypes = {
   location: PropTypes.shape({

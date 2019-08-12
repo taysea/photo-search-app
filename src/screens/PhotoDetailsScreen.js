@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Box,
-  Heading,
   Text,
 } from 'grommet';
 import {
-  Guideline,
   ImageList,
+  Palette,
 } from '../components';
+import LoadingScreen from './LoadingScreen';
 
-import { Palette } from '../components/Palette';
+// import { Palette } from '../components/Palette';
 
 const PhotoDetailsScreen = props => (
   <Box
@@ -20,7 +20,6 @@ const PhotoDetailsScreen = props => (
     <Box>
       <Text size="large" textAlign="center" margin="none">still looking for something different?</Text>
     </Box>
-
 
     <ImageList {...props} />
   </Box>

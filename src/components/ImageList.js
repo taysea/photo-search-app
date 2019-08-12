@@ -51,36 +51,38 @@ const ImageList = ({ ...props }) => {
     fetchPhotos();
   }, [query, props.history.location]);
 
-  if (loadingStatus === STATUSES.LOADING) {
-    return (
-      <Box full align="center" justify="center">
-        <Spinner />
-      </Box>
-    );
-  } if (loadingStatus === STATUSES.NONE) {
-    return (
-      <Box>
-        <Text alignSelf="center">
-          Hmmm, we could not find any images about that.
-        </Text>
-      </Box>
-    );
-  } if (loadingStatus === STATUSES.SUCCESS) {
-    return (
-      <ResponsiveContext.Consumer>
-        {size => (
-          <Grid rows="medium" columns={size !== 'small' ? 'medium' : '100%'} gap="small">
-            {data.map(photo => <Thumbnail key={photo.id} photo={photo} />)}
-          </Grid>
-        )}
-      </ResponsiveContext.Consumer>
-    );
+  switch (loadingStatus) {
+    case STATUSES.LOADING:
+      return (
+        <Box full align="center" justify="center">
+          <Spinner />
+        </Box>
+      );
+    case STATUSES.NONE:
+      return (
+        <Box>
+          <Text alignSelf="center">
+            Hmmm, we could not find any images about that.
+          </Text>
+        </Box>
+      );
+    case STATUSES.SUCCESS:
+      return (
+        <ResponsiveContext.Consumer>
+          {size => (
+            <Grid rows="medium" columns={size !== 'small' ? 'medium' : '100%'} gap="small">
+              {data.map(photo => <Thumbnail key={photo.id} photo={photo} />)}
+            </Grid>
+          )}
+        </ResponsiveContext.Consumer>
+      );
+    default:
+      return (
+        <Box>
+          <Text alignSelf="center">Oh no! Something went wrong. Please try again in a little while.</Text>
+        </Box>
+      );
   }
-  return (
-    <Box>
-      <Text alignSelf="center">Oh no! Something went wrong. Please try again in a little while.</Text>
-    </Box>
-  );
 };
 
 export default ImageList;
