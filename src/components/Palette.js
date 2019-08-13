@@ -88,7 +88,26 @@ const Palette = (props) => {
                   color="dark-5"
                   size="xsmall"
                 >
-                  {`photo by ${data.user.name} from Unsplash`}
+                  photo by
+                  {' '}
+                  <Button
+                    href={data.user.links.html}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {data.user.name}
+                  </Button>
+                  {' '}
+                   from
+
+                  {' '}
+                  <Button
+                    href="https://unsplash.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Unsplash
+                  </Button>
                 </Text>
               </Box>
               <Box
