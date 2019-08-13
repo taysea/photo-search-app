@@ -7,6 +7,7 @@ import {
 import {
   FormNext,
 } from 'grommet-icons';
+import styled from 'styled-components';
 import {
   Link,
   ImageList,
@@ -20,6 +21,13 @@ const colorRowTwo = [
   'status-ok', 'accent-2', 'brand',
 ];
 
+const StyledLink = styled(Link)`
+  color: #7D4CDB;
+  &:hover {
+    text-decoration: underline;
+  }
+
+`;
 const Intro = props => (
   <ResponsiveContext.Consumer>
     {size => (
@@ -97,7 +105,7 @@ const Intro = props => (
             direction="row"
             wrap
           >
-            <Link to="/how-it-works">how it works</Link>
+            <StyledLink to="/how-it-works">how it works</StyledLink>
             <FormNext />
           </Box>
 
