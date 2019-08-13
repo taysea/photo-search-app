@@ -51,7 +51,7 @@ const HowItWorks = () => (
             size="small"
             margin="none"
           >
-            react-color-palette
+            react-color-extractor
           </Heading>
           <Text>
               This npm package is used to extract six dominant colors from a selected image.

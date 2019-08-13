@@ -29,7 +29,7 @@ const App = () => (
   <Grommet theme={customTheme} full>
     <Router>
       <ScrollToTop>
-        <Box gap="medium" pad="large" style={{ minHeight: '100vh' }}>
+        <Box gap="medium" pad={{ top: 'large', horizontal: 'large', bottom: 'medium' }} style={{ minHeight: '100vh' }}>
           <Header />
           <Switch>
             <Route

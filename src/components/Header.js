@@ -35,7 +35,7 @@ const Header = () => (
           </Link>
 
           {size !== 'small'
-          && <Text color="dark-1">created using Grommet, Unsplash, and React Color Palette</Text>
+          && <Text color="dark-1">created using Grommet, Unsplash, and React Color Extractor</Text>
           }
         </Box>
         <SearchForm />

@@ -16,7 +16,7 @@ const Footer = () => (
         made by Taylor Seamans
       </Text>
       <Button
-        icon={<Github color="light-5" size="large" />}
+        icon={<Github color="light-5" />}
         href="https://github.com/taysea"
         target="_blank"
         rel="noopener noreferrer"
