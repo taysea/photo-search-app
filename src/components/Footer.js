@@ -11,7 +11,6 @@ import {
 
 const Footer = () => (
   <Box flex as="footer" align="center" justify="end" pad={{ top: 'medium' }}>
-    <Box align="center">
       <Text color="light-5">
         made by Taylor Seamans
       </Text>
@@ -21,8 +20,6 @@ const Footer = () => (
         target="_blank"
         rel="noopener noreferrer"
       />
-    </Box>
-
   </Box>
 );
 

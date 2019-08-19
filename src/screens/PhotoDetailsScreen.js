@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Box,
   Text,
@@ -7,7 +7,6 @@ import {
   ImageList,
   Palette,
 } from '../components';
-import LoadingScreen from './LoadingScreen';
 
 const PhotoDetailsScreen = props => (
   <Box

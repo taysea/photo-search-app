@@ -4,7 +4,6 @@ export { default as ImageList } from './ImageList';
 export { default as Footer } from './Footer';
 export { default as Link } from './Link';
 export { default as Palette } from './Palette';
-export { default as ProfileInformation } from './ProfileInformation';
 export { default as ScrollToTop } from './ScrollToTop';
 export { default as SearchForm } from './SearchForm';
 export { default as Show } from './Show';

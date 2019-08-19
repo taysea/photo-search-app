@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -23,7 +23,7 @@ const ImageList = ({ ...props }) => {
   const [data, setData] = useState({ photos: [] });
   const [loadingStatus, setLoadingStatus] = useState(STATUSES.LOADING);
   const query = props.history.location.search.substr(1);
-  // const { setPageLoadingStatus } = props;
+  const size = useContext(ResponsiveContext);
 
 
   useEffect(() => {
@@ -69,13 +69,9 @@ const ImageList = ({ ...props }) => {
       );
     case STATUSES.SUCCESS:
       return (
-        <ResponsiveContext.Consumer>
-          {size => (
-            <Grid rows="medium" columns={size !== 'small' ? 'medium' : '100%'} gap="small">
-              {data.map(photo => <Thumbnail key={photo.id} photo={photo} />)}
-            </Grid>
-          )}
-        </ResponsiveContext.Consumer>
+        <Grid rows="medium" columns={size !== 'small' ? 'medium' : '100%'} gap="small">
+          {data.map(photo => <Thumbnail key={photo.id} photo={photo} />)}
+        </Grid>
       );
     default:
       return (

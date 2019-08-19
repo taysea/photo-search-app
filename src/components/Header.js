@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Box,
   Heading,
@@ -12,37 +12,36 @@ import {
   SearchForm,
 } from '.';
 
-const Header = () => (
-  <ResponsiveContext.Consumer>
-    {size => (
-      <Box as="header" direction="row-responsive" gap="medium" pad={{ bottom: 'medium' }} justify="between">
-        <Box>
-          <Link
-            to="/"
-          >
-            <Box direction={size !== 'small' ? 'row' : 'column'} gap="small" align="center">
-              <Box width="xxsmall" height="xxsmall">
-                <Image src={logo} alt="Color Palette Generator Logo" fit="cover" />
-              </Box>
-              <Heading
-                size="small"
-                color="dark-1"
-                margin="none"
-              >
-            color palette generator
-              </Heading>
+const Header = () => {
+  const size = useContext(ResponsiveContext);
+  
+  return (
+    <Box as="header" direction="row-responsive" gap="medium" pad={{ bottom: 'medium' }} justify="between">
+      <Box>
+        <Link
+          to="/"
+        >
+          <Box direction={size !== 'small' ? 'row' : 'column'} gap="small" align="center">
+            <Box width="xxsmall" height="xxsmall">
+              <Image src={logo} alt="Color Palette Generator Logo" fit="cover" />
             </Box>
-          </Link>
+            <Heading
+              size="small"
+              color="dark-1"
+              margin="none"
+            >
+          color palette generator
+            </Heading>
+          </Box>
+        </Link>
 
-          {size !== 'small'
-          && <Text color="dark-1">created using Grommet, Unsplash, and React Color Extractor</Text>
-          }
-        </Box>
-        <SearchForm />
+        {size !== 'small'
+        && <Text color="dark-1">created using Grommet, Unsplash, and React Color Extractor</Text>
+        }
       </Box>
-    )}
-
-  </ResponsiveContext.Consumer>
-);
+      <SearchForm />
+    </Box>
+  );
+};
 
 export default Header;

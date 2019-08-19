@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Box,
   Heading,
@@ -28,94 +28,93 @@ const StyledLink = styled(Link)`
   }
 
 `;
-const Intro = props => (
-  <ResponsiveContext.Consumer>
-    {size => (
-      <Box gap="medium">
+const Intro = props => {
+  const size = useContext(ResponsiveContext);
+  
+  return (
+    <Box gap="medium">
+      <Box
+        width={size !== 'small' ? 'xlarge' : '100%'}
+        justify="center"
+        align="center"
+        alignSelf="center"
+        gap="medium"
+        pad={{ top: 'small' }}
+      >
         <Box
-          width={size !== 'small' ? 'xlarge' : '100%'}
-          justify="center"
+          gap="small"
+          width={size !== 'small' ? '100%' : 'small'}
           align="center"
-          alignSelf="center"
-          gap="medium"
-          pad={{ top: 'small' }}
+          margin={{ bottom: 'medium' }}
+          animation={{ type: 'fadeIn', delay: '100' }}
         >
           <Box
-            gap="small"
-            width={size !== 'small' ? '100%' : 'small'}
-            align="center"
-            margin={{ bottom: 'medium' }}
-            animation={{ type: 'fadeIn', delay: '100' }}
-          >
-            <Box
-              width={size !== 'small' ? 'large' : 'medium'}
-              direction="row"
-              gap="small"
-              justify="center"
-              wrap
-            >
-              {colorRowOne.map(color => (
-                <Box
-                  key={color}
-                  background={color}
-                  round="small"
-                  basis="1/4"
-                  height={size !== 'small' ? 'xsmall' : 'xxsmall'}
-                />
-              ))}
-            </Box>
-
-            <Box
-              width={size !== 'small' ? 'large' : '100%'}
-              direction="row"
-              gap="small"
-              justify="center"
-              wrap
-            >
-              {colorRowTwo.map(color => (
-                <Box
-                  key={color}
-                  background={color}
-                  round="small"
-                  basis="1/4"
-                  height={size !== 'small' ? 'xsmall' : 'xxsmall'}
-                />
-              ))}
-            </Box>
-          </Box>
-
-          <Heading
-            size="large"
-            textAlign="center"
-            margin="none"
-          >
-            change the way you choose color palettes
-          </Heading>
-
-          <Heading
-            size="small"
-            textAlign="center"
-            margin="none"
-          >
-            Let photos you like help you find the right color palette for your project.
-            Go ahead. Click on a photo you like, or search for one.
-          </Heading>
-
-          <Box
+            width={size !== 'small' ? 'large' : 'medium'}
             direction="row"
+            gap="small"
+            justify="center"
             wrap
           >
-            <StyledLink to="/how-it-works">how it works</StyledLink>
-            <FormNext />
+            {colorRowOne.map(color => (
+              <Box
+                key={color}
+                background={color}
+                round="small"
+                basis="1/4"
+                height={size !== 'small' ? 'xsmall' : 'xxsmall'}
+              />
+            ))}
           </Box>
 
-
+          <Box
+            width={size !== 'small' ? 'large' : '100%'}
+            direction="row"
+            gap="small"
+            justify="center"
+            wrap
+          >
+            {colorRowTwo.map(color => (
+              <Box
+                key={color}
+                background={color}
+                round="small"
+                basis="1/4"
+                height={size !== 'small' ? 'xsmall' : 'xxsmall'}
+              />
+            ))}
+          </Box>
         </Box>
-        <ImageList {...props} />
-      </Box>
 
-    )}
-  </ResponsiveContext.Consumer>
-);
+        <Heading
+          size="large"
+          textAlign="center"
+          margin="none"
+        >
+          change the way you choose color palettes
+        </Heading>
+
+        <Heading
+          size="small"
+          textAlign="center"
+          margin="none"
+        >
+          Let photos you like help you find the right color palette for your project.
+          Go ahead. Click on a photo you like, or search for one.
+        </Heading>
+
+        <Box
+          direction="row"
+          wrap
+        >
+          <StyledLink to="/how-it-works">how it works</StyledLink>
+          <FormNext />
+        </Box>
+
+
+      </Box>
+      <ImageList {...props} />
+    </Box>
+  );
+};
 
 export default Intro;
